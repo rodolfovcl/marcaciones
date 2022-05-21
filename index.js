@@ -3,11 +3,10 @@ const cron = require('node-cron')
 
 
 
-// const maracacion = cron.schedule('* * * * * ', () =>{ marcaciones.generarMarcacion })
-//
-// maracacion.start()
-//
+/*A las 08:00 todos los días de la semana de lunes a viernes*/
+cron.schedule('00 08 * * 1-5 ', () =>{marcaciones.generarMarcacion('1RA','Inicio de jornada') })
+cron.schedule('00 13 * * 1-5 ', () =>{marcaciones.generarMarcacion('2DA','Salida al almuerzo') })
+cron.schedule('00 14 * * 1-5 ', () =>{marcaciones.generarMarcacion('3RA','Vuelta del almuerzo') })
+cron.schedule('00 18 * * 1-5 ', () =>{marcaciones.generarMarcacion('4RTA','Termino de jornada') })
 
-
-cron.schedule('* * * * * ', () =>{ console.log('98988sf98sd9g7s7g9sg7sg') })
-cron.schedule('* * * * * ', () =>{ marcaciones.generarMarcacion() })
+// marcaciones.generarMarcacion('1RA','Inicio de jornada')
