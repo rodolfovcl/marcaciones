@@ -9,4 +9,4 @@ cron.schedule('00 13 * * 1-5 ', () =>{ marcaciones.generarMarcacion('2DA','Salid
 cron.schedule('00 14 * * 1-5 ', () =>{ marcaciones.generarMarcacion('3RA','Vuelta del almuerzo') })
 cron.schedule('00 18 * * 1-5 ', () =>{ marcaciones.generarMarcacion('4RTA','Termino de jornada') })
 
-// marcaciones.generarMarcacion('1RA','Inicio de jornada')
+// marcaciones.generarMarcacion('0','Prueba marcacion')
