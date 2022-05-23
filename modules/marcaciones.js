@@ -10,7 +10,7 @@ const hora = `${fecha.getHours()}:${fecha.getMinutes()}:${fecha.getSeconds()}`
 const generarMarcacion = async (tipoMarcacion, nombreMarcacion) => {
     try {
         //? 1- Abrir chrome
-        const browser = await puppeteer.launch({ headless: false /*, devtools: true*/ }) // headless: false para que habra el navegador
+        const browser = await puppeteer.launch({ headless: true /*, devtools: true*/ }) // headless: false para que habra el navegador
         // Nueva pagina
         const page = await browser.newPage()
         // Defino tamaño de la pagina
@@ -37,8 +37,11 @@ const generarMarcacion = async (tipoMarcacion, nombreMarcacion) => {
         await page.waitForSelector('button[title="Marcaciones"]', {visible: true})
         await page.click('button[title="Marcaciones"]')
         // Boton marcacion
-        await page.waitForSelector('#app > div.v-dialog__content.v-dialog__content--active > div > div > div.v-card__actions > div > button', {visible: true})
-        await page.click('#app > div.v-dialog__content.v-dialog__content--active > div > div > div.v-card__actions > div > button')
+        if (nombreMarcacion !== 'Prueba marcacion') {
+            await page.waitForSelector('#app > div.v-dialog__content.v-dialog__content--active > div > div > div.v-card__actions > div > button', {visible: true})
+            await page.waitForTimeout(1000)
+            await page.click('#app > div.v-dialog__content.v-dialog__content--active > div > div > div.v-card__actions > div > button')
+        }
 
         //? 4- En 15 seg termino proceso
         await page.waitForTimeout(5000)
