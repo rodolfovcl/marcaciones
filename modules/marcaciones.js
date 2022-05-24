@@ -4,10 +4,13 @@ require('dotenv').config() // npm i dotenv
 const user = process.env.USERNAME
 const password = process.env.PASSWORD
 const fecha = new Date()
-const dia = `${fecha.getDate()}/${fecha.getMonth()+1}/${fecha.getFullYear()}`
+const formatoDia = `${fecha.getDate()}/${fecha.getMonth()+1}/${fecha.getFullYear()}`
 const hora = `${fecha.getHours()}:${fecha.getMinutes()}:${fecha.getSeconds()}`
+const arrayDias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
+const numeroDia = fecha.getDay()
+const nombreDia = arrayDias[numeroDia]
 
-const generarMarcacion = async (tipoMarcacion, nombreMarcacion) => {
+const generarMarcacion = async (orden, nombreMarcacion) => {
     try {
         //? 1- Abrir chrome
         const browser = await puppeteer.launch({ headless: true /*, devtools: true*/ }) // headless: false para que habra el navegador
@@ -22,7 +25,7 @@ const generarMarcacion = async (tipoMarcacion, nombreMarcacion) => {
         await page.goto('https://intranet4.colegium.com/login')
 
         //? 2- Inicio sesion
-        console.log(`\nDia ${dia}.`)
+        console.log(`\nDia ${formatoDia}.`)
         console.log(`Iniciando sesion Intranet4 - ${user}`)
         await page.waitForSelector('#input-14', {visible: true})
         await page.type('#input-14', user, {delay:300})
@@ -30,7 +33,7 @@ const generarMarcacion = async (tipoMarcacion, nombreMarcacion) => {
         await page.click('#app > div > div > div > div:nth-child(2) > form > div.container > div.sn-login__actions.my-0 > button')
 
         //? 3- Genero marcación
-        console.log(`Generando ${tipoMarcacion} marcacion - ${nombreMarcacion}: ${hora} hrs.`)
+        console.log(`Generando ${orden} marcacion - ${nombreMarcacion}: ${hora} hrs.`)
         await page.waitForTimeout(2000)
         await page.click('body')
         await page.waitForTimeout(500)
@@ -52,5 +55,14 @@ const generarMarcacion = async (tipoMarcacion, nombreMarcacion) => {
     }
 }
 
+const cambioDiaMarcacion = async () => {
+    console.log(`\n**********************************`)
+    console.log(`*                                *`)
+    console.log(`*     📅  ${nombreDia} - ${formatoDia}.    *`)
+    console.log(`*                                *`)
+    console.log(`**********************************`)
+}
+
 
 exports.generarMarcacion = generarMarcacion
+exports.cambioDiaMarcacion = cambioDiaMarcacion
