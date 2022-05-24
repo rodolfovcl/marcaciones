@@ -1,11 +1,26 @@
 const puppeteer = require('puppeteer')
 require('dotenv').config() // npm i dotenv
 
+/* Variables de entorno */
 const user = process.env.USERNAME
 const password = process.env.PASSWORD
+/*Fecha completa*/
 const fecha = new Date()
-const formatoDia = `${fecha.getDate()}/${fecha.getMonth()+1}/${fecha.getFullYear()}`
-const hora = `${fecha.getHours()}:${fecha.getMinutes()}:${fecha.getSeconds()}`
+/*Valida dias y meses*/
+let dia = fecha.getDate()
+if (dia < 10) dia = `0${fecha.getDate()}`
+let mes = fecha.getMonth()+1
+if (mes < 10) mes = `0${fecha.getMonth()+1}`
+let formatoDia = `${dia}/${mes}/${fecha.getFullYear()}`
+/*Valida horas*/
+let hora = fecha.getHours()
+if (hora < 10) `0${fecha.getHours()}`
+let minutos = fecha.getMinutes()
+if (minutos < 10) minutos = `0${fecha.getMinutes()}`
+let segundos = fecha.getSeconds()
+if (segundos < 10) `0${fecha.getSeconds()}`
+const horaCompleta = `${hora}:${minutos}:${segundos}`
+/* Nombre dia de la semana*/
 const arrayDias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
 const numeroDia = fecha.getDay()
 const nombreDia = arrayDias[numeroDia]
@@ -33,7 +48,7 @@ const generarMarcacion = async (orden, nombreMarcacion) => {
         await page.click('#app > div > div > div > div:nth-child(2) > form > div.container > div.sn-login__actions.my-0 > button')
 
         //? 3- Genero marcación
-        console.log(`Generando ${orden} marcacion - ${nombreMarcacion}: ${hora} hrs.`)
+        console.log(`Generando ${orden} marcacion - ${nombreMarcacion}: ${horaCompleta} hrs.`)
         await page.waitForTimeout(2000)
         await page.click('body')
         await page.waitForTimeout(500)
@@ -56,11 +71,11 @@ const generarMarcacion = async (orden, nombreMarcacion) => {
 }
 
 const cambioDiaMarcacion = async () => {
-    console.log(`\n**********************************`)
-    console.log(`*                                *`)
-    console.log(`*     📅  ${nombreDia} - ${formatoDia}.    *`)
-    console.log(`*                                *`)
-    console.log(`**********************************`)
+    console.log(`\n***********************************`)
+    console.log(`*                                 *`)
+    console.log(`*     🗓   ${nombreDia} - ${formatoDia}     *`)
+    console.log(`*                                 *`)
+    console.log(`***********************************`)
 }
 
 
