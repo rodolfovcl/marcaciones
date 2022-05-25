@@ -80,11 +80,11 @@ const generarMarcacion = async (orden, nombreMarcacion) => {
 }
 
 const cambioDiaMarcacion = async () => {
-    console.log(`\n***************************************`)
-    console.log(`*                                     *`)
-    console.log(`*      🗓   ${date().nombreDia} - ${date().formatoDia}     *`)
-    console.log(`*                                     *`)
-    console.log(`***************************************`)
+    console.log(`\n****************************************`)
+    console.log(`*                                      *`)
+    console.log(`*      🗓   ${date().nombreDia} - ${date().formatoDia}      *`)
+    console.log(`*                                      *`)
+    console.log(`****************************************`)
 }
 
 
