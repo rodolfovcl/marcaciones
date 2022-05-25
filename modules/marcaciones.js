@@ -4,26 +4,35 @@ require('dotenv').config() // npm i dotenv
 /* Variables de entorno */
 const user = process.env.USERNAME
 const password = process.env.PASSWORD
-/*Fecha completa*/
-const fecha = new Date()
-/*Valida dias y meses*/
-let dia = fecha.getDate()
-if (dia < 10) dia = `0${fecha.getDate()}`
-let mes = fecha.getMonth()+1
-if (mes < 10) mes = `0${fecha.getMonth()+1}`
-let formatoDia = `${dia}/${mes}/${fecha.getFullYear()}`
-/*Valida horas*/
-let hora = fecha.getHours()
-if (hora < 10) `0${fecha.getHours()}`
-let minutos = fecha.getMinutes()
-if (minutos < 10) minutos = `0${fecha.getMinutes()}`
-let segundos = fecha.getSeconds()
-if (segundos < 10) `0${fecha.getSeconds()}`
-const horaCompleta = `${hora}:${minutos}:${segundos}`
-/* Nombre dia de la semana*/
-const arrayDias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
-const numeroDia = fecha.getDay()
-const nombreDia = arrayDias[numeroDia]
+
+const date = () => {
+    let obj = {}
+    /*Fecha completa*/
+    obj.fecha = new Date()
+    /*Valida dias y meses*/
+    obj.dia = obj.fecha.getDate()
+    if (obj.dia < 10) obj.dia = `0${obj.fecha.getDate()}`
+    obj.mes = obj.fecha.getMonth()+1
+    if (obj.mes < 10) obj.mes = `0${obj.fecha.getMonth()+1}`
+    obj.formatoDia = `${obj.dia}/${obj.mes}/${obj.fecha.getFullYear()}`
+    /*Valida horas*/
+    obj.hora = obj.fecha.getHours()
+    if (obj.hora < 10) obj.hora = `0${obj.fecha.getHours()}`
+    obj.minutos = obj.fecha.getMinutes()
+    if (obj.minutos < 10) obj.minutos = `0${obj.fecha.getMinutes()}`
+    obj.segundos = obj.fecha.getSeconds()
+    if (obj.segundos < 10) obj.segundos = `0${obj.fecha.getSeconds()}`
+    obj.horaCompleta = `${obj.hora}:${obj.minutos}:${obj.segundos}`
+    /* Nombre del mes */
+    const arrayMeses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+    obj.nombreMes = arrayMeses[obj.fecha.getMonth()]
+    /* Nombre dia de la semana*/
+    const arrayDias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
+    obj.numeroDia = obj.fecha.getDay()
+    obj.nombreDia = arrayDias[obj.numeroDia]
+
+    return obj
+}
 
 const generarMarcacion = async (orden, nombreMarcacion) => {
     try {
@@ -40,7 +49,7 @@ const generarMarcacion = async (orden, nombreMarcacion) => {
         await page.goto('https://intranet4.colegium.com/login')
 
         //? 2- Inicio sesion
-        console.log(`\nDia ${formatoDia}.`)
+        console.log(`\nDia ${date().formatoDia}.`)
         console.log(`Iniciando sesion Intranet4 - ${user}`)
         await page.waitForSelector('#input-14', {visible: true})
         await page.type('#input-14', user, {delay:300})
@@ -48,7 +57,7 @@ const generarMarcacion = async (orden, nombreMarcacion) => {
         await page.click('#app > div > div > div > div:nth-child(2) > form > div.container > div.sn-login__actions.my-0 > button')
 
         //? 3- Genero marcación
-        console.log(`Generando ${orden} marcacion - ${nombreMarcacion}: ${horaCompleta} hrs.`)
+        console.log(`Generando ${orden} marcacion - ${nombreMarcacion}: ${date().horaCompleta} hrs.`)
         await page.waitForTimeout(2000)
         await page.click('body')
         await page.waitForTimeout(500)
@@ -71,11 +80,11 @@ const generarMarcacion = async (orden, nombreMarcacion) => {
 }
 
 const cambioDiaMarcacion = async () => {
-    console.log(`\n***********************************`)
-    console.log(`*                                 *`)
-    console.log(`*     🗓   ${nombreDia} - ${formatoDia}     *`)
-    console.log(`*                                 *`)
-    console.log(`***********************************`)
+    console.log(`\n***************************************`)
+    console.log(`*                                     *`)
+    console.log(`*      🗓   ${date().nombreDia} - ${date().formatoDia}     *`)
+    console.log(`*                                     *`)
+    console.log(`***************************************`)
 }
 
 
