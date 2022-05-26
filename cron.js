@@ -12,4 +12,4 @@ cron.schedule('00 18 * * 1-5 ', () =>{ marcaciones.generarMarcacion('4TA','Termi
 
 /* Descomentar para pruebas */
 // marcaciones.cambioDiaMarcacion()
-// marcaciones.generarMarcacion('0','Prueba marcacion')
+// marcaciones.generarMarcacion('NA','Prueba marcacion')
