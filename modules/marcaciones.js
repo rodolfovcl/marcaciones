@@ -50,19 +50,21 @@ const generarMarcacion = async (orden, nombreMarcacion) => {
 
         //? 2- Inicio sesion
         console.log(`\nDia ${date().formatoDia}.`)
-        console.log(`Iniciando sesion Intranet4 - ${user}`)
-        await page.waitForSelector('#input-14', {visible: true})
-        await page.type('#input-14', user, {delay:300})
-        await page.type('#input-17', password, {delay:300})
-        await page.click('#app > div > div > div > div:nth-child(2) > form > div.container > div.sn-login__actions.my-0 > button')
+        console.log(`Iniciando sesión Intranet4 - ${user}`)
+        await page.waitForSelector('input[type="text"]', {visible: true})
+        await page.type('input[type="text"]', user, {delay:300})
+        await page.type('input[type="password"]', password, {delay:300})
+        await page.click('button[type="submit"]')
 
         //? 3- Genero marcación
-        console.log(`Generando ${orden} marcacion - ${nombreMarcacion}: ${date().horaCompleta} hrs.`)
+        console.log(`Generando ${orden} marcación - ${nombreMarcacion}: ${date().horaCompleta} hrs.`)
         await page.waitForTimeout(2000)
         await page.click('body')
         await page.waitForTimeout(500)
         await page.waitForSelector('button[title="Marcaciones"]', {visible: true})
+        // await page.waitForSelector('#app > div > header > div > button:nth-child(4)', {visible: true})
         await page.click('button[title="Marcaciones"]')
+        // await page.click('#app > div > header > div > button:nth-child(4)')
         // Boton marcacion
         if (nombreMarcacion !== 'Prueba marcacion') {
             await page.waitForSelector('#app > div.v-dialog__content.v-dialog__content--active > div > div > div.v-card__actions > div > button', {visible: true})
@@ -72,7 +74,7 @@ const generarMarcacion = async (orden, nombreMarcacion) => {
 
         //? 4- En 15 seg termino proceso
         await page.waitForTimeout(5000)
-        console.log('Proceso terminado.')
+        console.log('Marcación generada correctamente.')
         await browser.close();
     } catch (error) {
         console.error('Error al iniciar marcaCron: ', error)
