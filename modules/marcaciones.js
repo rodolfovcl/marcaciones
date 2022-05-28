@@ -85,7 +85,7 @@ const cambioDiaMarcacion = async () => {
     let espacio = '', espacio2 = '', ast = ''
     if (d == 'Miércoles') espacio2 = ' ', ast = '*'
     d == 'Lunes' ? espacio = '    ' : d == 'Martes' ? espacio = '   ' : d == 'Jueves' ? espacio = '   ' : d == 'Viernes' ? espacio = '  ' : ''
-    console.log(`\n**********************************************${ast}`)
+    console.log(`\n\n**********************************************${ast}`)
     console.log(`*                                            ${espacio2}*`)
     console.log('*', '\x1b[35m', `    🗓   ${date().fechaConNombres}${espacio}   ${espacio2}`, '\x1b[0m', '*')
     console.log(`*                                            ${espacio2}*`)
