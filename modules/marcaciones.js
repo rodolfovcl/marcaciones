@@ -50,7 +50,8 @@ const generarMarcacion = async (orden, nombreMarcacion) => {
         await page.goto('https://intranet4.colegium.com/login')
 
         //? 2- Inicio sesion
-        console.log('\n\x1b[35m', '*', '\x1b[0m', ` ${date().nombreDia} ${date().formatoDia}.`)
+        // console.log('\n\x1b[35m', '*', '\x1b[0m', ` ${date().nombreDia} ${date().formatoDia}.`)
+        console.log('\n\x1b[35m', '*', '\x1b[0m', ` ${date().horaCompleta} hrs.`)
         console.log('\x1b[36m', '1-', '\x1b[0m' ,`Iniciando sesión Intranet4 - ${user}`)
         await page.waitForSelector('input[type="text"]', {visible: true})
         await page.type('input[type="text"]', user, {delay:300})
@@ -58,7 +59,8 @@ const generarMarcacion = async (orden, nombreMarcacion) => {
         await page.click('button[type="submit"]')
 
         //? 3- Genero marcación
-        console.log('\x1b[36m', '2-', '\x1b[0m' ,'Generando la', '\x1b[33m',`${orden}`,'\x1b[0m', `marcación - ${nombreMarcacion}: ${date().horaCompleta} hrs.`)
+        // console.log('\x1b[36m', '2-', '\x1b[0m' ,'Generando la', '\x1b[33m',`${orden}`,'\x1b[0m', `marcación - ${nombreMarcacion}: ${date().horaCompleta} hrs.`)
+        console.log('\x1b[36m', '2-', '\x1b[0m' ,'Generando la', '\x1b[33m',`${orden}`,'\x1b[0m', `marcación - ${nombreMarcacion}.`)
         await page.waitForTimeout(2000)
         await page.click('body')
         await page.waitForTimeout(500)
@@ -66,6 +68,7 @@ const generarMarcacion = async (orden, nombreMarcacion) => {
         await page.click('button[title="Marcaciones"]')
         // Boton marcacion
         if (nombreMarcacion !== 'Prueba marcacion') {
+            await page.waitForTimeout(1000)
             await page.waitForSelector('#app > div.v-dialog__content.v-dialog__content--active > div > div > div.v-card__actions > div > button', {visible: true})
             await page.waitForTimeout(1000)
             await page.click('#app > div.v-dialog__content.v-dialog__content--active > div > div > div.v-card__actions > div > button')
@@ -76,7 +79,7 @@ const generarMarcacion = async (orden, nombreMarcacion) => {
         await page.waitForTimeout(5000)
         await browser.close();
     } catch (error) {
-        console.error('\n\x1b[41m', '!Error al iniciar marcaCron!','\x1b[0m', error)
+        console.error('\n\x1b[41m', '!Error al ejecutar marcaCron!','\x1b[0m', error)
     }
 }
 
