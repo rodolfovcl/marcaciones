@@ -68,14 +68,14 @@ const generarMarcacion = async (orden, nombreMarcacion) => {
         await page.click('button[title="Marcaciones"]')
         // Boton marcacion
         if (nombreMarcacion !== 'Prueba marcacion') {
-            await page.waitForTimeout(1000)
+            await page.waitForTimeout(2000)
             await page.waitForSelector('#app > div.v-dialog__content.v-dialog__content--active > div > div > div.v-card__actions > div > button', {visible: true})
             await page.waitForTimeout(1000)
             await page.click('#app > div.v-dialog__content.v-dialog__content--active > div > div > div.v-card__actions > div > button')
+            console.log('\x1b[36m', '3-', '\x1b[0m' ,'Marcación generada correctamente.')
         }
 
         //? 4- Termino proceso En 5 seg
-        console.log('\x1b[36m', '3-', '\x1b[0m' ,'Marcación generada correctamente.')
         await page.waitForTimeout(5000)
         await browser.close();
     } catch (error) {
