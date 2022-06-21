@@ -73,6 +73,8 @@ const generarMarcacion = async (orden, nombreMarcacion) => {
             await page.waitForTimeout(1000)
             await page.click('#app > div.v-dialog__content.v-dialog__content--active > div > div > div.v-card__actions > div > button')
             console.log('\x1b[36m', '3-', '\x1b[0m' ,'Marcación generada correctamente.')
+        } else {
+            console.log('\x1b[36m', '3-', '\x1b[0m' ,'Marcación de prueba generada correctamente.')
         }
 
         //? 4- Termino proceso En 5 seg
